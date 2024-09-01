@@ -2,20 +2,23 @@
 
 require "functions.php";
 
-$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+// require "router.php";
 
-dd($_SERVER);
+// my sql database connection
+// PDO = php data objects
+// $dsn = data source name (port to connection to database)
 
-$routes = [
-  "/" => "controllers/index.php",
-  "/about" => "controllers/about.php",
-  "/contact" => "controllers/contact.php"
-];
+$dsn = "mysql:host=localhost;port=3306;dbname=dbdemo";
 
-if (array_key_exists($uri, $routes)) {
-  require $routes[$uri];
-} else {
-  http_response_code(404);
-  echo "Sorry Page not found.";
-  die();
-}
+$username = 'root';
+$password = 'root';
+
+$pdo = new PDO($dsn, $username, $password);
+
+$statement = $pdo->prepare("SELECT * FROM posts");
+
+$statement->execute();
+
+$posts = $statement->fetchAll();
+
+dd($posts);
