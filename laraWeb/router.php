@@ -4,7 +4,9 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $routes = [
   "/" => "controllers/index.php",
   "/about" => "controllers/about.php",
-  "/contact" => "controllers/contact.php"
+  "/contact" => "controllers/contact.php",
+  "/notes" => "controllers/notes.php",
+  "/note" => "controllers/note.php"
 ];
 
 function routeToController($uri, $routes)
@@ -20,7 +22,7 @@ function routeToController($uri, $routes)
 function abort($error = 404)
 {
   http_response_code($error);
-  require "views/404.view.php";
+  require "views/{$error}.php";
   die();
 }
 
