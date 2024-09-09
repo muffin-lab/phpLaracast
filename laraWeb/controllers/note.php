@@ -9,7 +9,7 @@ $currentUserId = 1;
 
 $note = $db->query('SELECT * FROM notes where id = :id', [
   'id' => $_GET['id']
-])->fetch();
+])->findOrFail();
 
 if (!$note) {
   abort();
